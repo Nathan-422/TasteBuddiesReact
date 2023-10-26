@@ -1,4 +1,5 @@
 import Auth from '../services/AuthenticationService'
+import StorageService from '../services/StorageService'
 
 function submitForm(event: React.FormEvent<HTMLFormElement>) {
 	console.log('Button was pressed')
@@ -6,14 +7,16 @@ function submitForm(event: React.FormEvent<HTMLFormElement>) {
 
 	Auth.login({ email: 'nathan@example.net', password: 'password' })
 		.then((response) => {
-			localStorage.setItem('JWT', response.data.idToken)
-			console.log(response.data)
+			StorageService.saveJwt(response.data.idToken)
+			// TODO: continue form success message from here
 		})
 		.catch((error) => {
 			alert(error)
+			// TODO: add error message here
 		})
 		.finally(() => {
 			console.log('This might have worked')
+			// TODO: probably remove this? Clear password
 		})
 }
 
