@@ -1,24 +1,24 @@
-import { useNavigate } from "react-router-dom"
-import { useAuth } from "../providers/authProvider"
-import { useEffect } from "react"
-
+import { useNavigate } from 'react-router-dom'
+import { useAuth } from '../providers/authProvider'
+import { useEffect } from 'react'
 
 const SignOut = () => {
 	const { setToken } = useAuth()
 	const navigate = useNavigate()
+
 	const handleLogout = () => {
 		setToken(null)
-		navigate('/', {replace: true})
+		navigate('/', { replace: true })
 	}
 
- useEffect(() => {
+	useEffect(() => {
 		handleLogout()
-	}, []) 
+	}, [])
 
 	return (
-	<>
-		<p>Sign out</p>
-	</>
+		<>
+			<p>Sign out</p>
+		</>
 	)
 }
 
