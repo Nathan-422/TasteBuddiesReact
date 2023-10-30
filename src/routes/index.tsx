@@ -2,9 +2,10 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import { useAuth } from '../providers/authProvider'
 import { ProtectedRoute } from '../ProtectedRoute'
 import Home from '../pages/Home'
-import Login from '../pages/Login'
 import SignOut from '../pages/SignOut'
 import Events from '../pages/Events'
+import SignIn from '../pages/SignIn'
+import { UnauthenticatedOnlyRoute } from '../UnauthenticatedOnlyRoute'
 
 const Routes = () => {
 	const { token } = useAuth()
@@ -14,10 +15,6 @@ const Routes = () => {
 			path: '/',
 			element: <Home />,
 		},
-		{
-			path: '/login',
-			element: <Login />,
-		},
 	]
 
 	const routesForAuthenticatedOnly = [
@@ -26,28 +23,39 @@ const Routes = () => {
 			element: <ProtectedRoute />,
 			children: [
 				{
-					path: '/events',
-					element: Events,
+					path: 'events',
+					element: <Events />,
+				},
+				{
+					path: 'logout',
+					element: <SignOut />,
+				},
+				{
+					path: '/',
+					element: <Home />,
 				},
 			],
-		},
-		{
-			path: '/signout',
-			element: <SignOut />,
 		},
 	]
 
 	const routesForNotAuthenticatedOnly = [
 		{
-			path: '/login',
-			element: <Login />,
+			path: '/',
+			element: <UnauthenticatedOnlyRoute />,
+			children: [
+				{
+					path: 'login',
+					element: <SignIn />,
+				},
+			],
 		},
 	]
 
 	const router = createBrowserRouter([
 		...routesForPublic,
-		...(!token ? routesForAuthenticatedOnly : []),
 		...routesForNotAuthenticatedOnly,
+		// ...(!token ? routesForNotAuthenticatedOnly : []),
+		...routesForAuthenticatedOnly,
 	])
 
 	return <RouterProvider router={router} />

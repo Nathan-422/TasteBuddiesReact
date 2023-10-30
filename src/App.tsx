@@ -1,18 +1,12 @@
-import Events from './pages/Events'
-import Home from './pages/Home'
-import Login from './pages/Login.tsx'
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import AuthProvider from './providers/authProvider.tsx'
+import Routes from './routes/index.tsx'
 
 export default function App() {
 	return (
 		<>
-			<Router>
-				<Routes>
-					<Route path="/" element={<Home />}></Route>
-					<Route path="/login" element={<Login />}></Route>
-					<Route path="/events" element={<Events />}></Route>
-				</Routes>
-			</Router>
+			<AuthProvider>
+				<Routes />
+			</AuthProvider>
 		</>
 	)
 }
