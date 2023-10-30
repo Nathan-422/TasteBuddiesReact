@@ -3,12 +3,12 @@ import { createContext, useMemo, useContext, useState, useEffect } from 'react'
 import axios from 'axios'
 import StorageService from '../services/StorageService'
 
-interface IAuthContext {
+type AuthContextType = {
 	token: string | null
-	setToken: (newToken: string) => void
+	setToken: (newToken: string | null) => void
 }
 
-const AuthContext = createContext<IAuthContext | null>(null)
+const AuthContext = createContext<AuthContextType>({} as AuthContextType)
 
 interface Props {
 	children: React.ReactNode
@@ -17,7 +17,7 @@ interface Props {
 const AuthProvider = ({ children }: Props) => {
 	const [token, setToken_] = useState(StorageService.getJwt())
 
-	const setToken = (newToken: string) => {
+	const setToken = (newToken: string | null) => {
 		setToken_(newToken)
 	}
 
@@ -31,7 +31,7 @@ const AuthProvider = ({ children }: Props) => {
 		}
 	}, [token])
 
-	const contextValue = useMemo(
+	const contextValue: AuthContextType = useMemo(
 		() => ({
 			token,
 			setToken,
