@@ -1,13 +1,19 @@
+import { useNavigate } from 'react-router-dom'
+import { useAuth } from '../providers/authProvider'
 import Auth from '../services/AuthenticationService'
 import StorageService from '../services/StorageService'
+const { setToken } = useAuth()
+const navigate = useNavigate()
 
 function submitForm(event: React.FormEvent<HTMLFormElement>) {
-	console.log('Button was pressed')
+	console.log('Submit form fired')
 	event.preventDefault()
 
 	Auth.login({ email: 'nathan@example.net', password: 'password' })
 		.then((response) => {
-			StorageService.saveJwt(response.data.idToken)
+			setToken(response.data.idToken)
+			navigate('events', { replace: true})
+			// StorageService.saveJwt(response.data.idToken)
 			// TODO: continue form success message from here
 		})
 		.catch((error) => {
