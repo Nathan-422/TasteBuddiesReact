@@ -1,19 +1,19 @@
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
-import { useAuth } from '../providers/authProvider'
 import { ProtectedRoute } from '../ProtectedRoute'
 import Home from '../pages/Home'
 import SignOut from '../pages/SignOut'
 import Events from '../pages/Events'
 import SignIn from '../pages/SignIn'
 import { UnauthenticatedOnlyRoute } from '../UnauthenticatedOnlyRoute'
+import Error from '../pages/Error'
 
 const Routes = () => {
-	const { token } = useAuth()
-
 	const routesForPublic = [
 		{
 			path: '/',
 			element: <Home />,
+			errorElement: <Error />,
+			title: 'Taste Buddies',
 		},
 	]
 
@@ -29,10 +29,6 @@ const Routes = () => {
 				{
 					path: 'logout',
 					element: <SignOut />,
-				},
-				{
-					path: '/',
-					element: <Home />,
 				},
 			],
 		},
@@ -54,7 +50,6 @@ const Routes = () => {
 	const router = createBrowserRouter([
 		...routesForPublic,
 		...routesForNotAuthenticatedOnly,
-		// ...(!token ? routesForNotAuthenticatedOnly : []),
 		...routesForAuthenticatedOnly,
 	])
 

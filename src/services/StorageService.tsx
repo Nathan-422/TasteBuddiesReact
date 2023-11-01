@@ -21,7 +21,7 @@ export default {
 			return false
 		}
 
-		return this.isTokenExpired(token)
+		return !this.isTokenExpired(token)
 	},
 	isTokenExpired(token: string): boolean {
 		const expiry = JSON.parse(atob(token.split('.')[1])).exp
@@ -30,9 +30,8 @@ export default {
 
 		if (expired) {
 			this.removeJwt()
-			return false
 		}
 
-		return true
+		return expired
 	},
 }

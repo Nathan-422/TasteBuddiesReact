@@ -6,8 +6,7 @@ export const ProtectedRoute = () => {
 	const { token } = useAuth()
 
 	if (!token || !AuthenticationService.isAuthenticated()) {
-		console.log('Hit the protected route')
-		return <Navigate to="/login" />
+		return <Navigate to="/login" replace={true} />
 	}
 
 	return <Outlet />
