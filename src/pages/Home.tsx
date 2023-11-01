@@ -10,13 +10,13 @@ export default function Home() {
 					<Link to={'/'}>Home</Link>
 				</li>
 				<li>
-					<Link to={'/login'}>Login</Link>
+					<Link to={'login'}>Login</Link>
 				</li>
 				<li>
-					<Link to={'/logout'}>Sign out</Link>
+					<Link to={'logout'}>Sign out</Link>
 				</li>
 				<li>
-					<Link to={'/events'}>Events</Link>
+					<Link to={'events'}>Events</Link>
 				</li>
 			</ul>
 		</>
