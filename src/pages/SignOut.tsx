@@ -1,6 +1,5 @@
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../providers/authProvider'
-import { useEffect } from 'react'
 
 const SignOut = () => {
 	const { setToken } = useAuth()
@@ -11,13 +10,10 @@ const SignOut = () => {
 		navigate('/', { replace: true })
 	}
 
-	useEffect(() => {
-		handleLogout()
-	}, [])
-
 	return (
 		<>
 			<p>Sign out</p>
+			<button onClick={handleLogout}>Sign out</button>
 		</>
 	)
 }

@@ -7,24 +7,17 @@ function SignIn() {
 	const { setToken } = useAuth()
 	const navigate = useNavigate()
 
-	const handleLogin = (newToken: string) => {
-		setToken(newToken)
-		navigate('/', { replace: true })
-	}
-
 	useEffect(() => {
 		// handleLogin('Test token from SignIn component')
 	}, [])
 
 	const submitForm = (event: React.FormEvent<HTMLFormElement>) => {
-		console.log('Submit form fired')
 		event.preventDefault()
 
 		Auth.login({ email: 'nathan@example.net', password: 'password' })
 			.then((response) => {
 				setToken(response.data.idToken)
 				navigate('../events', { replace: true, relative: 'path' })
-				// StorageService.saveJwt(response.data.idToken)
 				// TODO: continue form success message from here
 			})
 			.catch((error) => {
@@ -32,7 +25,6 @@ function SignIn() {
 				// TODO: add error message here
 			})
 			.finally(() => {
-				console.log('This might have worked')
 				// TODO: probably remove this? Clear password
 			})
 	}
