@@ -1,7 +1,12 @@
+import AuthProvider from './providers/authProvider.tsx'
+import Routes from './routes/index.tsx'
+
 export default function App() {
-  return (
-    <>
-      <p>Some text</p>
-    </>
-  )
+	return (
+		<>
+			<AuthProvider>
+				<Routes />
+			</AuthProvider>
+		</>
+	)
 }
