@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../providers/authProvider'
+import { Helmet } from 'react-helmet'
 
 const SignOut = () => {
 	const { setToken } = useAuth()
@@ -12,6 +13,9 @@ const SignOut = () => {
 
 	return (
 		<>
+			<Helmet>
+				<title>Sign out - TasteBuddies</title>
+			</Helmet>
 			<p>Sign out</p>
 			<button onClick={handleLogout}>Sign out</button>
 		</>

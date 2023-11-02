@@ -1,8 +1,12 @@
 import { Link } from 'react-router-dom'
+import { Helmet } from 'react-helmet'
 
 export default function Home() {
 	return (
 		<>
+			<Helmet>
+				<title>TasteBuddies</title>
+			</Helmet>
 			<h2>Home</h2>
 			<p>Home works</p>
 			<ul>
