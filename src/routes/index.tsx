@@ -23,7 +23,7 @@ const Routes = () => {
 			element: <ProtectedRoute />,
 			children: [
 				{
-					path: 'events',
+					path: 'event',
 					element: <Events />,
 				},
 				{

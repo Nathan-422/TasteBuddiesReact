@@ -20,7 +20,7 @@ export default function Home() {
 					<Link to={'/logout'}>Sign out</Link>
 				</li>
 				<li>
-					<Link to={'/events'}>Events</Link>
+					<Link to={'/event'}>Events</Link>
 				</li>
 			</ul>
 		</>

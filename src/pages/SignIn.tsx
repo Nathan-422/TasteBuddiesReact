@@ -23,7 +23,7 @@ function SignIn() {
 		Auth.login(data)
 			.then((response) => {
 				setToken(response.data.idToken)
-				navigate('../events', { replace: true, relative: 'path' })
+				navigate('../event', { replace: true, relative: 'path' })
 				// TODO: continue form success message from here
 			})
 			.catch((error) => {
