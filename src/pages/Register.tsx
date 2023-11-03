@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../providers/authProvider'
 import Auth from '../services/AuthenticationService'
 import { useForm, SubmitHandler } from 'react-hook-form'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 interface IFormInput {
 	email: string
@@ -19,8 +19,20 @@ export default function Register() {
 	const {
 		register,
 		handleSubmit,
-		formState: { errors },
-	} = useForm<IFormInput>()
+		formState: { errors, dirtyFields },
+	} = useForm<IFormInput>({
+		defaultValues: {
+			email: '',
+			displayName: '',
+			password: '',
+			confirmPassword: '',
+		}
+	})
+
+	useEffect(() => {
+		alert(dirtyFields)
+		// TODO: this only runs once as the initial change to the object triggers the effect, but not subsequent
+	}, [dirtyFields])
 
 	const onSubmit: SubmitHandler<IFormInput> = (data) => {
 		Auth.login(data)
@@ -109,7 +121,7 @@ export default function Register() {
 					<input
 						type="password"
 						id="confirmPassword"
-						{...register('password', {
+						{...register('confirmPassword', {
 							required: 'A password is required',
 							minLength: {
 								value: 7,
