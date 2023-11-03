@@ -19,20 +19,25 @@ export default function Register() {
 	const {
 		register,
 		handleSubmit,
-		formState: { errors, dirtyFields },
+		watch,
+		formState: { errors, dirtyFields, touchedFields },
 	} = useForm<IFormInput>({
 		defaultValues: {
 			email: '',
 			displayName: '',
 			password: '',
 			confirmPassword: '',
-		}
+		},
 	})
+	const watchPassword = watch('password')
+	const watchConfirmPassword = watch('confirmPassword')
 
 	useEffect(() => {
-		alert(dirtyFields)
+		console.log(dirtyFields)
+		console.log(watchPassword)
+		console.log(watchConfirmPassword)
 		// TODO: this only runs once as the initial change to the object triggers the effect, but not subsequent
-	}, [dirtyFields])
+	}, [dirtyFields, watchPassword, watchConfirmPassword, touchedFields])
 
 	const onSubmit: SubmitHandler<IFormInput> = (data) => {
 		Auth.login(data)
