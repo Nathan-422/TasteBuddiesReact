@@ -33,10 +33,9 @@ export default function Register() {
 	const watchConfirmPassword = watch('confirmPassword')
 
 	useEffect(() => {
-		console.log(dirtyFields)
-		console.log(watchPassword)
-		console.log(watchConfirmPassword)
-		// TODO: this only runs once as the initial change to the object triggers the effect, but not subsequent
+		if (dirtyFields.password && dirtyFields.confirmPassword) {
+			console.log(watchPassword === watchConfirmPassword)
+		}
 	}, [dirtyFields, watchPassword, watchConfirmPassword, touchedFields])
 
 	const onSubmit: SubmitHandler<IFormInput> = (data) => {
@@ -139,8 +138,13 @@ export default function Register() {
 					<p role="alert">{errors.password.message}</p>
 				)}
 				{/* TODO: Write password comparison   */}
-				{errors.password?.type === 'required' && (
-					<p role="alert">{errors.password.message}</p>
+				{((dirtyFields.password ||
+					touchedFields.password) &&
+					(dirtyFields.confirmPassword ||
+					touchedFields.confirmPassword)) &&
+					watchPassword !== watchConfirmPassword
+						&& (
+					<p role="alert">Passwords must match</p>
 				)}
 				<button
 					className="rounded-md bg-yellow-400 px-3 py-1 shadow-sm"
