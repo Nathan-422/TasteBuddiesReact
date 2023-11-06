@@ -39,7 +39,7 @@ export default function Register() {
 			return true
 		})
 
-		Auth.login(data)
+		Auth.register(data)
 			.then((response) => {
 				setToken(response.data.idToken)
 				navigate('../event', { replace: true, relative: 'path' })
@@ -140,7 +140,7 @@ export default function Register() {
 						<p role="alert">Passwords must match</p>
 					)}
 				<button
-					className="w-20 mt-4 rounded-md bg-yellow-400 px-3 py-1 shadow-sm"
+					className="mt-4 w-20 rounded-md bg-yellow-400 px-3 py-1 shadow-sm"
 					type="submit"
 					id="submit"
 				>
