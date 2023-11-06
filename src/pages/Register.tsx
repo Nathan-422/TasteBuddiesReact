@@ -1,9 +1,9 @@
 import { Helmet } from 'react-helmet'
+import Auth from '../services/AuthenticationService'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../providers/authProvider'
-import Auth from '../services/AuthenticationService'
 import { useForm, SubmitHandler } from 'react-hook-form'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 interface IFormInput {
 	email: string
@@ -31,12 +31,6 @@ export default function Register() {
 	})
 	const watchPassword = watch('password')
 	const watchConfirmPassword = watch('confirmPassword')
-
-	useEffect(() => {
-		if (dirtyFields.password && dirtyFields.confirmPassword) {
-			console.log(watchPassword === watchConfirmPassword)
-		}
-	}, [dirtyFields, watchPassword, watchConfirmPassword, touchedFields])
 
 	const onSubmit: SubmitHandler<IFormInput> = (data) => {
 		Auth.login(data)
@@ -134,18 +128,12 @@ export default function Register() {
 						})}
 					/>
 				</label>
-				{errors.password?.type === 'required' && (
-					<p role="alert">{errors.password.message}</p>
-				)}
-				{/* TODO: Write password comparison   */}
-				{((dirtyFields.password ||
-					touchedFields.password) &&
-					(dirtyFields.confirmPassword ||
-					touchedFields.confirmPassword)) &&
-					watchPassword !== watchConfirmPassword
-						&& (
-					<p role="alert">Passwords must match</p>
-				)}
+				{errors.password?.type && <p role="alert">{errors.password.message}</p>}
+				{(dirtyFields.password || touchedFields.password) &&
+					(dirtyFields.confirmPassword || touchedFields.confirmPassword) &&
+					watchPassword !== watchConfirmPassword && (
+						<p role="alert">Passwords must match</p>
+					)}
 				<button
 					className="rounded-md bg-yellow-400 px-3 py-1 shadow-sm"
 					type="submit"
