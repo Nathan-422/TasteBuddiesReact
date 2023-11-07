@@ -27,10 +27,9 @@ export default function Events() {
 			.catch((error) => {
 				console.log(error)
 			})
-			.finally(() => {
-				console.log('Request to the server ran')
-			})
 		return () => {
+			setUpcomingEvents([])
+			setPastEvents([])
 			controller.abort('Cancelled in cleanup')
 		}
 	}, [])
