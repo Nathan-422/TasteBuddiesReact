@@ -1,5 +1,5 @@
-import { Link } from 'react-router-dom'
-import AuthenticationService from '../../services/AuthenticationService'
+import { Link, NavLink } from 'react-router-dom'
+import { useAuth } from '../../providers/authProvider'
 
 type link = {
 	text: string
@@ -16,23 +16,34 @@ const login: link = { text: 'login', path: '/login' }
 const logout: link = { text: 'Log out', path: '/logout' }
 
 export const Navbar = () => {
+	const { token } = useAuth()
 	const authLink = () => {
-		return AuthenticationService.isAuthenticated() ? logout : login
+		return token ? logout : login
 	}
 
 	return (
-		<nav>
-			<Link to="/">Home</Link>
-			<div className="flex justify-end">
-				{links.map((link) => {
-					return (
-						<Link to={link.path} key={link.text}>
-							{link.text}
-						</Link>
-					)
-				})}
-				{<Link to={authLink().path}>{authLink().text}</Link>}
-			</div>
-		</nav>
+		<>
+			<header className="flex px-6">
+				<div className="mr-auto">
+					<Link to="/">Home</Link>
+				</div>
+				<nav className="">
+					<ul className="flex gap-4 hover:[&>li]:underline">
+						{links.map((link) => {
+							return (
+								<li key={link.text}>
+									<NavLink to={link.path}>{link.text}</NavLink>
+								</li>
+							)
+						})}
+						{
+							<li>
+								<NavLink to={authLink().path}>{authLink().text}</NavLink>
+							</li>
+						}
+					</ul>
+				</nav>
+			</header>
+		</>
 	)
 }

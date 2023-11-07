@@ -48,48 +48,30 @@ const Routes = () => {
 					element: <NavbarWrapper />,
 					children: [
 						{
-							path: 'event',
+							path: '/event',
 							element: <Events />,
 						},
 						{
-							path: 'logout',
+							path: '/logout',
 							element: <SignOut />,
 						},
-					],
-				},
-			],
-		},
-		{
-			path: '/event',
-			element: <ProtectedRoute />,
-			children: [
-				{
-					path: '/event',
-					element: <NavbarWrapper />,
-					children: [
 						{
-							path: 'join',
+							path: '/event/join',
 							element: <JoinEvent />,
 						},
 						{
-							path: 'create',
+							path: '/event/create',
 							element: <CreateEvent />,
 						},
 						{
-							path: ':eventId',
+							path: '/event/:eventId',
 							element: <Event />,
 						},
+						{
+							path: '/event/:eventId/results',
+							element: <Result />,
+						},
 					],
-				},
-			],
-		},
-		{
-			path: '/',
-			element: <NavbarWrapper />,
-			children: [
-				{
-					path: '/event/:eventId/results',
-					element: <Result />,
 				},
 			],
 		},
