@@ -1,4 +1,4 @@
-import { RouterProvider, createBrowserRouter } from 'react-router-dom'
+import { Outlet, RouterProvider, createBrowserRouter } from 'react-router-dom'
 import { ProtectedRoute } from '../ProtectedRoute'
 import { UnauthenticatedOnlyRoute } from '../UnauthenticatedOnlyRoute'
 import Error from '../pages/Error'
@@ -11,14 +11,30 @@ import JoinEvent from '../pages/JoinEvent'
 import CreateEvent from '../pages/CreateEvent'
 import Result from '../pages/Result'
 import Register from '../pages/Register'
+import { Navbar } from '../components/navbar/Navbar'
+
+const NavbarWrapper = () => {
+	return (
+		<>
+			<Navbar />
+			<Outlet />
+		</>
+	)
+}
 
 const Routes = () => {
 	const routesForPublic = [
 		{
 			path: '/',
-			element: <Home />,
+			element: <NavbarWrapper />,
 			errorElement: <Error />,
 			title: 'Taste Buddies',
+			children: [
+				{
+					path: '/',
+					element: <Home />,
+				},
+			],
 		},
 	]
 
@@ -28,36 +44,36 @@ const Routes = () => {
 			element: <ProtectedRoute />,
 			children: [
 				{
-					path: 'event',
-					element: <Events />,
-				},
-				{
-					path: 'logout',
-					element: <SignOut />,
+					path: '/',
+					element: <NavbarWrapper />,
+					children: [
+						{
+							path: '/event',
+							element: <Events />,
+						},
+						{
+							path: '/logout',
+							element: <SignOut />,
+						},
+						{
+							path: '/event/join',
+							element: <JoinEvent />,
+						},
+						{
+							path: '/event/create',
+							element: <CreateEvent />,
+						},
+						{
+							path: '/event/:eventId',
+							element: <Event />,
+						},
+						{
+							path: '/event/:eventId/results',
+							element: <Result />,
+						},
+					],
 				},
 			],
-		},
-		{
-			path: '/event',
-			element: <ProtectedRoute />,
-			children: [
-				{
-					path: 'join',
-					element: <JoinEvent />,
-				},
-				{
-					path: 'create',
-					element: <CreateEvent />,
-				},
-				{
-					path: ':eventId',
-					element: <Event />,
-				},
-			],
-		},
-		{
-			path: '/event/:eventId/results',
-			element: <Result />,
 		},
 	]
 
@@ -67,12 +83,18 @@ const Routes = () => {
 			element: <UnauthenticatedOnlyRoute />,
 			children: [
 				{
-					path: 'login',
-					element: <SignIn />,
-				},
-				{
-					path: 'register',
-					element: <Register />,
+					path: '/',
+					element: <NavbarWrapper />,
+					children: [
+						{
+							path: 'login',
+							element: <SignIn />,
+						},
+						{
+							path: 'register',
+							element: <Register />,
+						},
+					],
 				},
 			],
 		},
