@@ -26,7 +26,7 @@ export default function Events() {
 				}
 			})
 			.catch((error) => {
-				console.log(error)
+				console.error(error)
 			})
 		return () => {
 			setUpcomingEvents([])
