@@ -1,4 +1,9 @@
-import { Outlet, RouterProvider, createBrowserRouter } from 'react-router-dom'
+import {
+	LoaderFunction,
+	Outlet,
+	RouterProvider,
+	createBrowserRouter,
+} from 'react-router-dom'
 import { ProtectedRoute } from '../ProtectedRoute'
 import { UnauthenticatedOnlyRoute } from '../UnauthenticatedOnlyRoute'
 import Error from '../pages/Error'
