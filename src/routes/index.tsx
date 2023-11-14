@@ -1,23 +1,17 @@
-import {
-	LoaderFunction,
-	Outlet,
-	RouterProvider,
-	createBrowserRouter,
-} from 'react-router-dom'
+import { Outlet, RouterProvider, createBrowserRouter } from 'react-router-dom'
 import { ProtectedRoute } from '../ProtectedRoute'
 import { UnauthenticatedOnlyRoute } from '../UnauthenticatedOnlyRoute'
+import { Navbar } from '../components/navbar/Navbar'
+import CreateEvent from '../pages/CreateEvent'
 import Error from '../pages/Error'
-import Home from '../pages/Home'
-import Event from '../pages/Event/Event'
+import Event, { loader } from '../pages/Event/Event'
 import Events from '../pages/Events'
+import Home from '../pages/Home'
+import JoinEvent from '../pages/JoinEvent'
+import Register from '../pages/Register'
+import Result from '../pages/Result'
 import SignIn from '../pages/SignIn'
 import SignOut from '../pages/SignOut'
-import JoinEvent from '../pages/JoinEvent'
-import CreateEvent from '../pages/CreateEvent'
-import Result from '../pages/Result'
-import Register from '../pages/Register'
-import { Navbar } from '../components/navbar/Navbar'
-import EventService from '../services/EventService'
 
 const NavbarWrapper = () => {
 	return (
@@ -72,9 +66,7 @@ const Routes = () => {
 						{
 							path: '/event/:eventId',
 							element: <Event />,
-							loader: async ({ params }: { params: { eventId: string } }) => {
-								return await EventService.getEvent(params.eventId)
-							},
+							loader: loader,
 						},
 						{
 							path: '/event/:eventId/results',

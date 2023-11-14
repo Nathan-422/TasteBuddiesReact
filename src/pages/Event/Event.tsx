@@ -3,21 +3,41 @@ import { Link, useLoaderData } from 'react-router-dom'
 import { Event as TEvent } from '../../models/Event'
 import { usePlacesPhoto } from './usePlacesPhoto'
 import { useRestaurantDetails } from './useRestaurantDetails'
+import { useEffect } from 'react'
+import EventService from '../../services/EventService'
+
+export const loader = async ({ params }: { params: { eventId: string } }) => {
+	return await EventService.getEvent(params.eventId)
+}
 
 export default function Event() {
-	// I'm not sure I have a better solution for this. react-router just doesn't support typescript well.
-	// I saw one library that implements ts better, but I'd rather stick to this one...
 	const data = useLoaderData().data as TEvent
 	const {
 		restaurant,
 		isLoading: isRestaurantLoading,
-		getRestuarantDetails,
+		getRestaurantDetails,
 	} = useRestaurantDetails()
 	const { photo, isLoading: isPhotoLoading, getPhotoDetails } = usePlacesPhoto()
 
+	useEffect(() => {
+		console.log('1. EVENT LOADING USE EFFECT RAN')
+		getRestaurantDetails(data.restaurants[0].id)
+	}, [])
+
+	useEffect(() => {
+		console.log(`-Restaurant has updated and is now: ${restaurant.name}`)
+	}, [restaurant])
+
 	// useEffect(() => {
-	// 	return controller.abort('Cancelled by page unload')
-	// }, [])
+	// 	console.log('PHOTO LOADING USE EFFECT RAN')
+	// 	if (restaurant.photos !== undefined) {
+	// 		console.log('-Photo reference = ' + restaurant.photos[0]?.photo_reference)
+	// 		getPhotoDetails(restaurant.photos[0]?.photo_reference)
+	// 	} else {
+	// 		console.log('-Photo array was empty')
+	// 	}
+	// 	// return () => photoController.abort('Cancelled by page unload')
+	// }, [restaurant])
 
 	// useEffect(() => {
 	// 	;async () => {
@@ -31,10 +51,10 @@ export default function Event() {
 		// TODO: Write useSubmitLike hook
 
 		console.log(isLike)
-		console.log(getRestuarantDetails('' + data.restaurants.shift()?.id))
+		console.log(getRestaurantDetails('' + data.restaurants.shift()?.id))
 	}
 	const loadRestaurant = () => {
-		getRestuarantDetails(data.restaurants[0].id)
+		getRestaurantDetails(data.restaurants[0].id)
 	}
 	const loadPhoto = () => {
 		getPhotoDetails(restaurant.photos[0].photo_reference, 400)

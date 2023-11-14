@@ -39,7 +39,11 @@ export const usePlacesPhoto = () => {
 
 			return setPhoto(res.data)
 		} catch (e) {
-			console.error(e)
+			if (e.message !== 'cancelled') {
+				console.error(e)
+			} else {
+				console.log('--Photo load cancelled')
+			}
 		} finally {
 			setIsLoading(false)
 		}
@@ -49,6 +53,6 @@ export const usePlacesPhoto = () => {
 		photo,
 		isLoading,
 		getPhotoDetails,
-		controller,
+		gcontroller,
 	}
 }

@@ -26,7 +26,9 @@ export default function Events() {
 				}
 			})
 			.catch((error) => {
-				console.error(error)
+				if (error.message !== 'canceled') {
+					console.error(error)
+				}
 			})
 		return () => {
 			setUpcomingEvents([])
