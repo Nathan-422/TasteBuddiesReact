@@ -27,8 +27,6 @@ export const useRestaurantDetails = (restaurantId: string) => {
 	useEffect(() => {
 		const localController = new AbortController()
 		if (id !== '' && id !== undefined) {
-			console.log('Running axiox request')
-
 			axios
 				.get(PLACES_API + 'restaurant' + '?placeID=' + id, {
 					signal: localController.signal,
@@ -49,7 +47,6 @@ export const useRestaurantDetails = (restaurantId: string) => {
 				})
 		}
 		return () => {
-			console.log('---Running restaurant cleanup')
 			localController.abort('cancelled due to page unload')
 			setResturant({} as TRestaurant)
 			setIsLoading(false)

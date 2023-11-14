@@ -31,18 +31,9 @@ export default function Event() {
 	}, [restaurant])
 
 	const submitLike = (isLike: boolean) => {
+		const currentRestaurant = data.restaurants.shift()?.id
 		// TODO: Write useSubmitLike hook
-
-		console.log(isLike)
-		console.log(
-			'Removing: ' + getRestaurantDetails('' + data.restaurants.shift()?.id)
-		)
-	}
-	const loadRestaurant = () => {
 		getRestaurantDetails(data.restaurants[0].id)
-	}
-	const loadPhoto = () => {
-		getPhotoDetails(restaurant.photos[0].photo_reference, 400)
 	}
 
 	return (
@@ -68,10 +59,6 @@ export default function Event() {
 					{/* 	  }) */}
 					{/* 	: 'Loading...'} */}
 				</p>
-				<button onClick={loadRestaurant}>LOAD DATA</button>
-				<br />
-				<button onClick={loadPhoto}>LOAD PHOTO</button>
-				<br />
 				<button
 					onClick={() => {
 						submitLike(true)
