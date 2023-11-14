@@ -11,47 +11,32 @@ export const loader = async ({ params }: { params: { eventId: string } }) => {
 }
 
 export default function Event() {
+	const maxPhotoWidth = 400
 	const data = useLoaderData().data as TEvent
 	const {
 		restaurant,
 		isLoading: isRestaurantLoading,
 		getRestaurantDetails,
-	} = useRestaurantDetails()
+	} = useRestaurantDetails(data.restaurants[0].id)
 	const { photo, isLoading: isPhotoLoading, getPhotoDetails } = usePlacesPhoto()
 
 	useEffect(() => {
-		console.log('1. EVENT LOADING USE EFFECT RAN')
 		getRestaurantDetails(data.restaurants[0].id)
 	}, [])
 
 	useEffect(() => {
-		console.log(`-Restaurant has updated and is now: ${restaurant.name}`)
+		if (restaurant.photos !== undefined) {
+			getPhotoDetails(restaurant.photos[0].photo_reference, maxPhotoWidth)
+		}
 	}, [restaurant])
 
-	// useEffect(() => {
-	// 	console.log('PHOTO LOADING USE EFFECT RAN')
-	// 	if (restaurant.photos !== undefined) {
-	// 		console.log('-Photo reference = ' + restaurant.photos[0]?.photo_reference)
-	// 		getPhotoDetails(restaurant.photos[0]?.photo_reference)
-	// 	} else {
-	// 		console.log('-Photo array was empty')
-	// 	}
-	// 	// return () => photoController.abort('Cancelled by page unload')
-	// }, [restaurant])
-
-	// useEffect(() => {
-	// 	;async () => {
-	// 		await getRestuarantDetails(data.restaurants[0].id)
-	// 		await getPhotoDetails(restaurant.photos[0].photo_reference, 400)
-	// 	}
-	// }, [getRestuarantDetails, data.restaurants])
-
-	// TODO: fix this mess
 	const submitLike = (isLike: boolean) => {
 		// TODO: Write useSubmitLike hook
 
 		console.log(isLike)
-		console.log(getRestaurantDetails('' + data.restaurants.shift()?.id))
+		console.log(
+			'Removing: ' + getRestaurantDetails('' + data.restaurants.shift()?.id)
+		)
 	}
 	const loadRestaurant = () => {
 		getRestaurantDetails(data.restaurants[0].id)

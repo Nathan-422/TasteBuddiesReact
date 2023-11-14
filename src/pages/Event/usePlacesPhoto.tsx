@@ -1,58 +1,76 @@
 import axios from 'axios'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
-export const usePlacesPhoto = () => {
+export const usePlacesPhoto = (
+	photoReference?: string,
+	maxWidth?: number,
+	maxHeight?: number
+) => {
+	const [photo_reference, setPhoto_reference] = useState(photoReference)
+	const [width, setMaxWidth] = useState(maxWidth)
+	const [height, setMaxHeight] = useState(maxHeight)
 	const [photo, setPhoto] = useState()
 	const [isLoading, setIsLoading] = useState(false)
-	const [controller] = useState(new AbortController())
 	const PLACES_API = 'http://localhost:8080/api/places/'
 
-	const getPhotoDetails = async (
+	const getPhotoDetails = (
 		photo_reference: string,
 		maxWidth?: number,
 		maxHeight?: number
 	) => {
-		try {
-			const queryParams = ['photo_reference=' + photo_reference]
+		setPhoto_reference(photo_reference)
+		setMaxWidth(maxWidth)
+		setMaxHeight(maxHeight)
+	}
 
-			if (maxWidth === undefined && maxHeight === undefined) {
+	useEffect(() => {
+		const queryParams = ['photo_reference=' + photo_reference]
+		const controller = new AbortController()
+
+		try {
+			if (width === undefined && height === undefined) {
 				throw Error('Either or both maxwidth or maxheight are required')
 			}
 
-			if (maxWidth !== undefined && maxWidth > 0) {
-				queryParams.push('maxwidth=' + maxWidth)
+			if (width !== undefined && width > 0) {
+				queryParams.push('maxwidth=' + width)
 			}
 
-			if (maxHeight !== undefined && maxHeight > 0) {
-				queryParams.push('maxheight=' + maxHeight)
+			if (height !== undefined && height > 0) {
+				queryParams.push('maxheight=' + height)
 			}
 
-			setIsLoading(true)
-
-			const res = await axios.get(
-				PLACES_API + 'image' + '?' + queryParams.join('&'),
-				{
+			axios
+				.get(PLACES_API + 'image' + '?' + queryParams.join('&'), {
 					responseType: 'blob',
 					signal: controller.signal,
-				}
-			)
-
-			return setPhoto(res.data)
+				})
+				.then((res) => {
+					setIsLoading(true)
+					setPhoto(res.data)
+				})
+				.catch((e) => {
+					if (e.message === 'cancelled') {
+						console.log('--Photo load cancelled')
+					} else {
+						console.error(e)
+					}
+				})
+				.finally(() => {
+					setIsLoading(false)
+				})
 		} catch (e) {
-			if (e.message !== 'cancelled') {
-				console.error(e)
-			} else {
-				console.log('--Photo load cancelled')
-			}
-		} finally {
+			console.log(e)
 			setIsLoading(false)
 		}
-	}
+		return () => {
+			controller.abort()
+		}
+	}, [photo_reference])
 
 	return {
 		photo,
 		isLoading,
 		getPhotoDetails,
-		gcontroller,
 	}
 }
