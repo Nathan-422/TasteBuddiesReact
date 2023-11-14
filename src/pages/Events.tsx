@@ -43,6 +43,10 @@ export default function Events() {
 				<title>Events - TasteBuddies</title>
 			</Helmet>
 			<h2>Events</h2>
+			<div>
+				<Link to="./join">Join an event</Link>
+				<Link to="./create">Create an event</Link>
+			</div>
 			<p>Upcomming Events</p>
 			<ul>
 				{upcommingEvents.length === 0 && <p>No upcomming events. Go make one!</p>}

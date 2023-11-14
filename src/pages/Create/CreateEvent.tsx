@@ -1,8 +1,8 @@
-import { useNavigate } from 'react-router-dom'
-import { SubmitHandler, useForm } from 'react-hook-form'
-import { Helmet } from 'react-helmet'
-import EventService from '../../services/EventService'
 import { useState } from 'react'
+import { Helmet } from 'react-helmet'
+import { SubmitHandler, useForm } from 'react-hook-form'
+import { useNavigate } from 'react-router-dom'
+import EventService from '../../services/EventService'
 
 export default function CreateEvent() {
 	interface IFormInput {
@@ -82,7 +82,6 @@ export default function CreateEvent() {
 				</button>
 				{errorRes && <p role="alert">{errorRes}</p>}
 			</form>
-			{errors.mealTime && <p role="alert">{errors.mealTime.message}</p>}
 		</>
 	)
 }
