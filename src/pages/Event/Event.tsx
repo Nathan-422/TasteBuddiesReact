@@ -5,6 +5,7 @@ import { usePlacesPhoto } from './usePlacesPhoto'
 import { useRestaurantDetails } from './useRestaurantDetails'
 import { useEffect } from 'react'
 import EventService from '../../services/EventService'
+import useSubmitLike from './useSubmitLike'
 
 export const loader = async ({ params }: { params: { eventId: string } }) => {
 	return await EventService.getEvent(params.eventId)
@@ -12,6 +13,7 @@ export const loader = async ({ params }: { params: { eventId: string } }) => {
 
 export default function Event() {
 	const maxPhotoWidth = 400
+	const loaderData = useLoaderData()
 	const data = useLoaderData().data as TEvent
 	const {
 		restaurant,
@@ -19,6 +21,7 @@ export default function Event() {
 		getRestaurantDetails,
 	} = useRestaurantDetails(data.restaurants[0].id)
 	const { photo, isLoading: isPhotoLoading, getPhotoDetails } = usePlacesPhoto()
+	const submitLike = useSubmitLike()
 
 	useEffect(() => {
 		getRestaurantDetails(data.restaurants[0].id)
@@ -30,9 +33,13 @@ export default function Event() {
 		}
 	}, [restaurant])
 
-	const submitLike = (isLike: boolean) => {
-		const currentRestaurant = data.restaurants.shift()?.id
-		// TODO: Write useSubmitLike hook
+	const saveLike = (isLike: boolean) => {
+		const currentRestaurant = data.restaurants.shift().id
+		submitLike({
+			eventId: '' + data.id,
+			restaurantId: currentRestaurant,
+			isLike: isLike,
+		})
 		getRestaurantDetails(data.restaurants[0].id)
 	}
 
@@ -61,14 +68,14 @@ export default function Event() {
 				</p>
 				<button
 					onClick={() => {
-						submitLike(true)
+						saveLike(true)
 					}}
 				>
 					Yes
 				</button>
 				<button
 					onClick={() => {
-						submitLike(false)
+						saveLike(false)
 					}}
 				>
 					No
