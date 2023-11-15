@@ -52,6 +52,11 @@ export default function Event() {
 					)}
 					<h4>Info:</h4>
 					<p>{!isRestaurantLoading ? restaurant.formatted_address : 'Loading...'}</p>
+					<p>
+						{!isRestaurantLoading && restaurant.types?.length !== 0
+							? restaurant.types?.join(', ')
+							: 'Loading...'}
+					</p>
 				</Await>
 			</Suspense>
 			<div></div>

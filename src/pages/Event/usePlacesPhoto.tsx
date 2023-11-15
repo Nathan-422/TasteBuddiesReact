@@ -58,11 +58,13 @@ export const usePlacesPhoto = (
 					setIsLoading(false)
 				})
 		} catch (e) {
-			console.log(e)
-			setIsLoading(false)
+			if (e.message !== 'cancelled') {
+				console.log(e)
+			}
 		}
 		return () => {
 			controller.abort()
+			setIsLoading(false)
 		}
 	}, [photo_reference])
 
