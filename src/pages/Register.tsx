@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../providers/authProvider'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { useState } from 'react'
-import Button from '../components/elements/Button'
 
 interface IFormInput {
 	email: string
@@ -65,11 +64,8 @@ export default function Register() {
 			<Helmet>
 				<title>Sign Up - TasteBuddies</title>
 			</Helmet>
-			<form
-				className="mx-auto flex flex-col sm:w-96 [&>input]:rounded-md [&>input]:border-2 [&>input]:border-gray-400 [&>label]:mt-2 [&>p]:text-red-700"
-				onSubmit={handleSubmit(onSubmit)}
-			>
-				<h2 className="text-4xl">Register</h2>
+			<form className="form" onSubmit={handleSubmit(onSubmit)}>
+				<h2>Register</h2>
 				<label htmlFor="email" content="Email">
 					Email
 				</label>
@@ -140,7 +136,9 @@ export default function Register() {
 					watchPassword !== watchConfirmPassword && (
 						<p role="alert">Passwords must match</p>
 					)}
-				<Button id="submit" type="submit" text="Submit" />
+				<button className="btn" id="submit" type="submit">
+					Submit
+				</button>
 				{errorRes && <p role="alert">{errorRes}</p>}
 				{submitted && submissionError && <p role="alert">{submissionError}</p>}
 			</form>

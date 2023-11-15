@@ -6,4 +6,12 @@
 	.active {
 		@apply font-bold;
 	}
+
+	.form {
+		@apply mx-auto flex flex-col sm:w-96 [&>h2]:text-4xl [&>input]:rounded-md [&>input]:border-2 [&>input]:border-gray-400 [&>label]:mt-2 [&>p]:text-red-700
+	}
+
+	.btn {
+		@apply mt-4 rounded-md bg-yellow-400 px-3 py-1 shadow-sm
+	}
 }

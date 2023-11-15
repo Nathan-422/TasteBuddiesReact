@@ -3,7 +3,6 @@ import { Helmet } from 'react-helmet'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 import EventService from '../../services/EventService'
-import Button from '../../components/elements/Button'
 
 export default function CreateEvent() {
 	interface IFormInput {
@@ -43,8 +42,8 @@ export default function CreateEvent() {
 			<Helmet>
 				<title>Create Event - TasteBuddies</title>
 			</Helmet>
-			<h2>Create event</h2>
-			<form onSubmit={handleSubmit(onSubmit)}>
+			<form className="form" id="join-event-form" onSubmit={handleSubmit(onSubmit)}>
+				<h2>Create event</h2>
 				<label htmlFor="location">Where</label>
 				<input
 					type="text"
@@ -75,9 +74,12 @@ export default function CreateEvent() {
 						required: 'A time is required',
 					})}
 				/>
-				<Button type="submit" id="Submit">
+				{/* <Button type="submit" id="Submit" form="join-event-form"> */}
+				{/* 	Submit */}
+				{/* </Button> */}
+				<button className="btn" type="submit" id="Submit" form="join-event-form">
 					Submit
-				</Button>
+				</button>
 				{errorRes && <p role="alert">{errorRes}</p>}
 			</form>
 		</>

@@ -4,7 +4,6 @@ import Auth from '../services/AuthenticationService'
 import { Helmet } from 'react-helmet'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { useState } from 'react'
-import Button from '../components/elements/Button'
 
 interface IFormInput {
 	email: string
@@ -43,50 +42,45 @@ function SignIn() {
 				<title>Login - TasteBuddies</title>
 			</Helmet>
 			<h2>Login</h2>
-			<form
-				className="[&>label>input]:rounded-md [&>label>input]:border-2 [&>label>input]:border-gray-400"
-				onSubmit={handleSubmit(onSubmit)}
-			>
+			<form className="form" onSubmit={handleSubmit(onSubmit)}>
 				<label htmlFor="email" content="Email">
 					Email
-					<input
-						type="email"
-						id="email"
-						{...register('email', {
-							required: 'An email address is required',
-							pattern: {
-								value: /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/,
-								message: 'Must be an email',
-							},
-						})}
-					/>
 				</label>
+				<input
+					type="email"
+					id="email"
+					{...register('email', {
+						required: 'An email address is required',
+						pattern: {
+							value: /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/,
+							message: 'Must be an email',
+						},
+					})}
+				/>
 				{errors.email?.type === 'required' && (
 					<p role="alert">{errors.email.message}</p>
 				)}
 				{errors.email?.type === 'pattern' && (
 					<p role="alert">{errors.email.message}</p>
 				)}
-				<label htmlFor="password">
-					Password
-					<input
-						type="password"
-						id="password"
-						{...register('password', {
-							required: 'A password is required',
-							minLength: {
-								value: 7,
-								message: 'Password must be at least 7 characters',
-							},
-						})}
-					/>
-				</label>
+				<label htmlFor="password">Password</label>
+				<input
+					type="password"
+					id="password"
+					{...register('password', {
+						required: 'A password is required',
+						minLength: {
+							value: 7,
+							message: 'Password must be at least 7 characters',
+						},
+					})}
+				/>
 				{errors.password?.type === 'required' && (
 					<p role="alert">{errors.password.message}</p>
 				)}
-				<Button id="submit" type="submit">
+				<button className="btn" id="submit" type="submit">
 					Submit
-				</Button>
+				</button>
 				{errorRes && <p role="alert">{errorRes}</p>}
 			</form>
 		</>
