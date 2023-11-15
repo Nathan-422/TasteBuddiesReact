@@ -41,8 +41,8 @@ function SignIn() {
 			<Helmet>
 				<title>Login - TasteBuddies</title>
 			</Helmet>
-			<h2>Login</h2>
-			<form className="form" onSubmit={handleSubmit(onSubmit)}>
+			<form className="form card" onSubmit={handleSubmit(onSubmit)}>
+				<h2>Login</h2>
 				<label htmlFor="email" content="Email">
 					Email
 				</label>
@@ -78,9 +78,11 @@ function SignIn() {
 				{errors.password?.type === 'required' && (
 					<p role="alert">{errors.password.message}</p>
 				)}
-				<button className="btn" id="submit" type="submit">
-					Submit
-				</button>
+				<div className="flex justify-end">
+					<button className="btn" id="submit" type="submit">
+						Submit
+					</button>
+				</div>
 				{errorRes && <p role="alert">{errorRes}</p>}
 			</form>
 		</>

@@ -16,7 +16,7 @@ export const loader = async ({ params }: { params: { eventId: string } }) => {
 }
 
 export default function Event() {
-	const maxPhotoWidth = 400
+	const maxPhotoWidth = 640
 	const data = useLoaderData().eventRes.data as TEvent
 	const resultData = useLoaderData().resultRes.data
 	const {
@@ -52,12 +52,15 @@ export default function Event() {
 			<Helmet>
 				<title>Event - TasteBuddies</title>
 			</Helmet>
-			<h2>Event: {data.entryCode}</h2>
-			<div>
-				<p>Event ID: {data.id}</p>
+			<div className="event-card card">
+				<h2>Event: {data.entryCode}</h2>
 				<h3>{!isRestaurantLoading ? restaurant.name : 'Loading...'}</h3>
 				{!isPhotoLoading && photo ? (
-					<img src={URL.createObjectURL(photo)} width={400} />
+					<img
+						className="my-2 rounded-2xl"
+						src={URL.createObjectURL(photo)}
+						width={maxPhotoWidth}
+					/>
 				) : (
 					<p>Loading image...</p>
 				)}
@@ -68,27 +71,33 @@ export default function Event() {
 						? restaurant.types?.join(', ')
 						: 'Loading...'}
 				</p>
-				<button
-					onClick={() => {
-						saveLike(true)
-					}}
-				>
-					Yes
-				</button>
-				<button
-					onClick={() => {
-						saveLike(false)
-					}}
-				>
-					No
-				</button>
-				<p>
+				<div className="mb-4 flex justify-center gap-4 sm:gap-8 md:gap-12">
+					<button
+						className="btn-success w-40"
+						onClick={() => {
+							saveLike(true)
+						}}
+					>
+						Yes
+					</button>
+					<button
+						className="btn-danger w-40"
+						onClick={() => {
+							saveLike(false)
+						}}
+					>
+						No
+					</button>
+				</div>
+				<div className="mb-4 flex justify-center">
 					{resultData.mutuallyLikedRestaurant ? (
-						<Link to={'./results'}>Your group has a match</Link>
+						<Link className="active btn-no-col bg-yellow-400" to={'./results'}>
+							Your group has a match
+						</Link>
 					) : (
-						'No match yet'
+						<p className="text-gray-600">No match yet</p>
 					)}
-				</p>
+				</div>
 			</div>
 		</>
 	)

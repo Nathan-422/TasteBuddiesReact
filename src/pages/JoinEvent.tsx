@@ -39,7 +39,7 @@ export default function JoinEvent() {
 				<title>Create Event - TasteBuddies</title>
 			</Helmet>
 			<form
-				className="form"
+				className="form card"
 				id="create-event-form"
 				onSubmit={handleSubmit(onSubmit)}
 			>
@@ -56,9 +56,11 @@ export default function JoinEvent() {
 					})}
 				/>
 				{errors.entryCode && <p role="alert">{errors.entryCode.message}</p>}
-				<button className="btn" type="submit" id="Submit" form="create-event-form">
-					Submit
-				</button>
+				<div className="flex justify-end">
+					<button className="btn" type="submit" id="Submit" form="create-event-form">
+						Submit
+					</button>
+				</div>
 				{errorRes && <p role="alert">{errorRes}</p>}
 			</form>
 		</>

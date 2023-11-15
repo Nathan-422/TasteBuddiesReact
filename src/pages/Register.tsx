@@ -64,7 +64,7 @@ export default function Register() {
 			<Helmet>
 				<title>Sign Up - TasteBuddies</title>
 			</Helmet>
-			<form className="form" onSubmit={handleSubmit(onSubmit)}>
+			<form className="form card" onSubmit={handleSubmit(onSubmit)}>
 				<h2>Register</h2>
 				<label htmlFor="email" content="Email">
 					Email
@@ -136,9 +136,11 @@ export default function Register() {
 					watchPassword !== watchConfirmPassword && (
 						<p role="alert">Passwords must match</p>
 					)}
-				<button className="btn" id="submit" type="submit">
-					Submit
-				</button>
+				<div className="flex justify-end">
+					<button className="btn" id="submit" type="submit">
+						Submit
+					</button>
+				</div>
 				{errorRes && <p role="alert">{errorRes}</p>}
 				{submitted && submissionError && <p role="alert">{submissionError}</p>}
 			</form>

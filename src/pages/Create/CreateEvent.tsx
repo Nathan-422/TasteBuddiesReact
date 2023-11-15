@@ -42,7 +42,11 @@ export default function CreateEvent() {
 			<Helmet>
 				<title>Create Event - TasteBuddies</title>
 			</Helmet>
-			<form className="form" id="join-event-form" onSubmit={handleSubmit(onSubmit)}>
+			<form
+				className="form card"
+				id="join-event-form"
+				onSubmit={handleSubmit(onSubmit)}
+			>
 				<h2>Create event</h2>
 				<label htmlFor="location">Where</label>
 				<input
@@ -77,9 +81,11 @@ export default function CreateEvent() {
 				{/* <Button type="submit" id="Submit" form="join-event-form"> */}
 				{/* 	Submit */}
 				{/* </Button> */}
-				<button className="btn" type="submit" id="Submit" form="join-event-form">
-					Submit
-				</button>
+				<div className="flex justify-end">
+					<button className="btn" type="submit" id="Submit" form="join-event-form">
+						Submit
+					</button>
+				</div>
 				{errorRes && <p role="alert">{errorRes}</p>}
 			</form>
 		</>
