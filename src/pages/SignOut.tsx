@@ -16,8 +16,15 @@ const SignOut = () => {
 			<Helmet>
 				<title>Sign out - TasteBuddies</title>
 			</Helmet>
-			<p>Sign out</p>
-			<button onClick={handleLogout}>Sign out</button>
+			<div className="card mx-auto flex w-96 flex-col justify-center text-center">
+				<h2>Sign out</h2>
+				<p className="mb-8">You will be logged out of your account</p>
+				<div>
+					<button className="btn" onClick={handleLogout}>
+						Sign out
+					</button>
+				</div>
+			</div>
 		</>
 	)
 }

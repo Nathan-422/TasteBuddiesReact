@@ -41,55 +41,48 @@ function SignIn() {
 			<Helmet>
 				<title>Login - TasteBuddies</title>
 			</Helmet>
-			<h2>Login</h2>
-			<form
-				className="[&>label>input]:rounded-md [&>label>input]:border-2 [&>label>input]:border-gray-400"
-				onSubmit={handleSubmit(onSubmit)}
-			>
+			<form className="form card" onSubmit={handleSubmit(onSubmit)}>
+				<h2>Login</h2>
 				<label htmlFor="email" content="Email">
 					Email
-					<input
-						type="email"
-						id="email"
-						{...register('email', {
-							required: 'An email address is required',
-							pattern: {
-								value: /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/,
-								message: 'Must be an email',
-							},
-						})}
-					/>
 				</label>
+				<input
+					type="email"
+					id="email"
+					{...register('email', {
+						required: 'An email address is required',
+						pattern: {
+							value: /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/,
+							message: 'Must be an email',
+						},
+					})}
+				/>
 				{errors.email?.type === 'required' && (
 					<p role="alert">{errors.email.message}</p>
 				)}
 				{errors.email?.type === 'pattern' && (
 					<p role="alert">{errors.email.message}</p>
 				)}
-				<label htmlFor="password">
-					Password
-					<input
-						type="password"
-						id="password"
-						{...register('password', {
-							required: 'A password is required',
-							minLength: {
-								value: 7,
-								message: 'Password must be at least 7 characters',
-							},
-						})}
-					/>
-				</label>
+				<label htmlFor="password">Password</label>
+				<input
+					type="password"
+					id="password"
+					{...register('password', {
+						required: 'A password is required',
+						minLength: {
+							value: 7,
+							message: 'Password must be at least 7 characters',
+						},
+					})}
+				/>
 				{errors.password?.type === 'required' && (
 					<p role="alert">{errors.password.message}</p>
 				)}
-				<button
-					className="rounded-md bg-yellow-400 px-3 py-1 shadow-sm"
-					type="submit"
-					id="submit"
-				>
-					Submit
-				</button>
+				<div className="flex justify-end">
+					<button className="btn" id="submit" type="submit">
+						Submit
+					</button>
+				</div>
 				{errorRes && <p role="alert">{errorRes}</p>}
 			</form>
 		</>

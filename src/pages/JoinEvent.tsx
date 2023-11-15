@@ -38,8 +38,12 @@ export default function JoinEvent() {
 			<Helmet>
 				<title>Create Event - TasteBuddies</title>
 			</Helmet>
-			<h2>Join event</h2>
-			<form onSubmit={handleSubmit(onSubmit)}>
+			<form
+				className="form card"
+				id="create-event-form"
+				onSubmit={handleSubmit(onSubmit)}
+			>
+				<h2>Join event</h2>
 				<label htmlFor="entryCode">Entry code</label>
 				<input
 					type="text"
@@ -47,12 +51,16 @@ export default function JoinEvent() {
 					placeholder="ABCDEF"
 					{...register('entryCode', {
 						required: 'A six letter entry code is required',
+						min: { message: 'Entry code must be six letters', value: 6 },
+						max: { message: 'Entry code must be six letters', value: 6 },
 					})}
 				/>
 				{errors.entryCode && <p role="alert">{errors.entryCode.message}</p>}
-				<button type="submit" id="Submit">
-					Submit
-				</button>
+				<div className="flex justify-end">
+					<button className="btn" type="submit" id="Submit" form="create-event-form">
+						Submit
+					</button>
+				</div>
 				{errorRes && <p role="alert">{errorRes}</p>}
 			</form>
 		</>

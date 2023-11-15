@@ -2,6 +2,42 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+	h2 {
+		@apply mb-5 text-4xl;
+	}
+	h3 {
+		@apply mb-3 text-2xl;
+	}
+	h4 {
+		@apply mb-2 text-xl;
+	}
+	form {
+		@apply mx-auto flex flex-col sm:w-96 [&>div>button]:mt-6 [&>input]:rounded-md [&>input]:border-2 [&>input]:border-gray-400 [&>label]:mt-2 [&>p]:text-red-700;
+	}
+}
+
+@layer components {
+	.card {
+		@apply rounded-md border-[1px] border-gray-100 px-4 py-6 shadow-lg;
+	}
+	.event-card {
+		@apply mx-auto flex flex-col sm:w-[640px] [&>p]:mb-2;
+	}
+	.btn {
+		@apply rounded-md bg-yellow-400 px-3 py-1 shadow-sm;
+	}
+	.btn-success {
+		@apply rounded-md bg-green-600 px-3 py-1 shadow-sm;
+	}
+	.btn-danger {
+		@apply rounded-md bg-red-600 px-3 py-1 shadow-sm;
+	}
+	.btn-no-col {
+		@apply rounded-md px-3 py-1 shadow-sm;
+	}
+}
+
 @layer utilities {
 	.active {
 		@apply font-bold;

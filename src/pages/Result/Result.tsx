@@ -15,7 +15,7 @@ export async function resultsLoader({ params }: { params: { eventId: string } })
 }
 
 export default function Event() {
-	const maxPhotoWidth = 400
+	const maxPhotoWidth = 640
 
 	const loaderData = useLoaderData()
 	const data = useLoaderData().res.data as TEvent
@@ -41,22 +41,30 @@ export default function Event() {
 			<Helmet>
 				<title>Results - TasteBuddies</title>
 			</Helmet>
-			<h2>Event: {data.entryCode}</h2>
 			<Suspense fallback={<p>Loading page data...</p>}>
 				<Await resolve={loaderData} errorElement={<p>Had an error...</p>}>
-					<h3>{!isRestaurantLoading ? restaurant.name : 'Loading...'}</h3>
-					{!isPhotoLoading && photo ? (
-						<img src={URL.createObjectURL(photo)} width={400} />
-					) : (
-						<p>Loading image...</p>
-					)}
-					<h4>Info:</h4>
-					<p>{!isRestaurantLoading ? restaurant.formatted_address : 'Loading...'}</p>
-					<p>
-						{!isRestaurantLoading && restaurant.types?.length !== 0
-							? restaurant.types?.join(', ')
-							: 'Loading...'}
-					</p>
+					<div className="event-card card">
+						<h2>Event: {data.entryCode}</h2>
+						<h3>{!isRestaurantLoading ? restaurant.name : 'Loading...'}</h3>
+						{!isPhotoLoading && photo ? (
+							<img
+								className="my-2 rounded-2xl"
+								src={URL.createObjectURL(photo)}
+								width={maxPhotoWidth}
+							/>
+						) : (
+							<p>Loading image...</p>
+						)}
+						<h4>Info:</h4>
+						<p>
+							{!isRestaurantLoading ? restaurant.formatted_address : 'Loading...'}
+						</p>
+						<p>
+							{!isRestaurantLoading && restaurant.types?.length !== 0
+								? restaurant.types?.join(', ')
+								: 'Loading...'}
+						</p>
+					</div>
 				</Await>
 			</Suspense>
 			<div></div>

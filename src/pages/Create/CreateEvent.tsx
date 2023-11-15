@@ -42,8 +42,12 @@ export default function CreateEvent() {
 			<Helmet>
 				<title>Create Event - TasteBuddies</title>
 			</Helmet>
-			<h2>Create event</h2>
-			<form onSubmit={handleSubmit(onSubmit)}>
+			<form
+				className="form card"
+				id="join-event-form"
+				onSubmit={handleSubmit(onSubmit)}
+			>
+				<h2>Create event</h2>
 				<label htmlFor="location">Where</label>
 				<input
 					type="text"
@@ -74,9 +78,14 @@ export default function CreateEvent() {
 						required: 'A time is required',
 					})}
 				/>
-				<button type="submit" id="Submit">
-					Submit
-				</button>
+				{/* <Button type="submit" id="Submit" form="join-event-form"> */}
+				{/* 	Submit */}
+				{/* </Button> */}
+				<div className="flex justify-end">
+					<button className="btn" type="submit" id="Submit" form="join-event-form">
+						Submit
+					</button>
+				</div>
 				{errorRes && <p role="alert">{errorRes}</p>}
 			</form>
 		</>

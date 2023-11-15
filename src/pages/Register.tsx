@@ -64,11 +64,8 @@ export default function Register() {
 			<Helmet>
 				<title>Sign Up - TasteBuddies</title>
 			</Helmet>
-			<form
-				className="mx-auto flex flex-col sm:w-96 [&>input]:rounded-md [&>input]:border-2 [&>input]:border-gray-400 [&>label]:mt-2 [&>p]:text-red-700"
-				onSubmit={handleSubmit(onSubmit)}
-			>
-				<h2 className="text-4xl">Register</h2>
+			<form className="form card" onSubmit={handleSubmit(onSubmit)}>
+				<h2>Register</h2>
 				<label htmlFor="email" content="Email">
 					Email
 				</label>
@@ -96,7 +93,7 @@ export default function Register() {
 					type="text"
 					id="display-name"
 					{...register('displayName', {
-						required: 'A display name is required!',
+						required: 'A display name is required',
 						minLength: {
 							value: 3,
 							message: 'Display name must be at least 3 characters.',
@@ -121,7 +118,7 @@ export default function Register() {
 						},
 					})}
 				/>
-				<label htmlFor="confirmPassword">Password</label>
+				<label htmlFor="confirmPassword">Confirm password</label>
 				<input
 					type="password"
 					id="confirmPassword"
@@ -139,13 +136,11 @@ export default function Register() {
 					watchPassword !== watchConfirmPassword && (
 						<p role="alert">Passwords must match</p>
 					)}
-				<button
-					className="mt-4 w-20 rounded-md bg-yellow-400 px-3 py-1 shadow-sm"
-					type="submit"
-					id="submit"
-				>
-					Submit
-				</button>
+				<div className="flex justify-end">
+					<button className="btn" id="submit" type="submit">
+						Submit
+					</button>
+				</div>
 				{errorRes && <p role="alert">{errorRes}</p>}
 				{submitted && submissionError && <p role="alert">{submissionError}</p>}
 			</form>
