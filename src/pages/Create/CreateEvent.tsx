@@ -3,6 +3,7 @@ import { Helmet } from 'react-helmet'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 import EventService from '../../services/EventService'
+import Button from '../../components/elements/Button'
 
 export default function CreateEvent() {
 	interface IFormInput {
@@ -74,9 +75,9 @@ export default function CreateEvent() {
 						required: 'A time is required',
 					})}
 				/>
-				<button type="submit" id="Submit">
+				<Button type="submit" id="Submit">
 					Submit
-				</button>
+				</Button>
 				{errorRes && <p role="alert">{errorRes}</p>}
 			</form>
 		</>

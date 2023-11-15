@@ -4,6 +4,7 @@ import Auth from '../services/AuthenticationService'
 import { Helmet } from 'react-helmet'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { useState } from 'react'
+import Button from '../components/elements/Button'
 
 interface IFormInput {
 	email: string
@@ -83,13 +84,9 @@ function SignIn() {
 				{errors.password?.type === 'required' && (
 					<p role="alert">{errors.password.message}</p>
 				)}
-				<button
-					className="rounded-md bg-yellow-400 px-3 py-1 shadow-sm"
-					type="submit"
-					id="submit"
-				>
+				<Button id="submit" type="submit">
 					Submit
-				</button>
+				</Button>
 				{errorRes && <p role="alert">{errorRes}</p>}
 			</form>
 		</>

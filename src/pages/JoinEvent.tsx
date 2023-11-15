@@ -3,6 +3,7 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 import { Helmet } from 'react-helmet'
 import EventService from '../services/EventService'
 import { useState } from 'react'
+import Button from '../components/elements/Button'
 
 export default function JoinEvent() {
 	interface IFormInput {
@@ -50,9 +51,9 @@ export default function JoinEvent() {
 					})}
 				/>
 				{errors.entryCode && <p role="alert">{errors.entryCode.message}</p>}
-				<button type="submit" id="Submit">
+				<Button type="submit" id="Submit">
 					Submit
-				</button>
+				</Button>
 				{errorRes && <p role="alert">{errorRes}</p>}
 			</form>
 		</>

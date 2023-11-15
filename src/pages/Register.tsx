@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../providers/authProvider'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { useState } from 'react'
+import Button from '../components/elements/Button'
 
 interface IFormInput {
 	email: string
@@ -96,7 +97,7 @@ export default function Register() {
 					type="text"
 					id="display-name"
 					{...register('displayName', {
-						required: 'A display name is required!',
+						required: 'A display name is required',
 						minLength: {
 							value: 3,
 							message: 'Display name must be at least 3 characters.',
@@ -121,7 +122,7 @@ export default function Register() {
 						},
 					})}
 				/>
-				<label htmlFor="confirmPassword">Password</label>
+				<label htmlFor="confirmPassword">Confirm password</label>
 				<input
 					type="password"
 					id="confirmPassword"
@@ -139,13 +140,7 @@ export default function Register() {
 					watchPassword !== watchConfirmPassword && (
 						<p role="alert">Passwords must match</p>
 					)}
-				<button
-					className="mt-4 w-20 rounded-md bg-yellow-400 px-3 py-1 shadow-sm"
-					type="submit"
-					id="submit"
-				>
-					Submit
-				</button>
+				<Button id="submit" type="submit" text="Submit" />
 				{errorRes && <p role="alert">{errorRes}</p>}
 				{submitted && submissionError && <p role="alert">{submissionError}</p>}
 			</form>
