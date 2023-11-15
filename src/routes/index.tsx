@@ -42,6 +42,7 @@ const Routes = () => {
 		{
 			path: '/',
 			element: <ProtectedRoute />,
+			errorElement: <Error />,
 			children: [
 				{
 					path: '/',

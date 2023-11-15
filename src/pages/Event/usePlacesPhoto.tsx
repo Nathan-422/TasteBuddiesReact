@@ -58,7 +58,7 @@ export const usePlacesPhoto = (
 					setIsLoading(false)
 				})
 		} catch (e) {
-			if (e.message !== 'cancelled') {
+			if (e.message !== 'canceled') {
 				console.log(e)
 			}
 		}

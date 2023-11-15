@@ -36,7 +36,7 @@ export const useRestaurantDetails = (restaurantId?: string) => {
 					setResturant(res.data)
 				})
 				.catch((e) => {
-					if (e.message !== 'cancelled') {
+					if (e.message !== 'canceled') {
 						console.error(e)
 					}
 				})
