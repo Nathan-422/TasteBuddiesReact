@@ -40,7 +40,6 @@ export default {
 			Authorization: 'Bearer ' + StorageService.getJwt(),
 			'Content-Type': 'application/json',
 		}
-		console.log(eventID)
 		return axios.post(EVENT_API, eventID, config)
 	},
 

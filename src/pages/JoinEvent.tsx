@@ -21,9 +21,6 @@ export default function JoinEvent() {
 		},
 	})
 	const onSubmit: SubmitHandler<IFormInput> = (data) => {
-		console.log('Now send this data!')
-		console.log(data)
-
 		EventService.joinEvent(data.entryCode)
 			.then(() => {
 				setErrorRes(null)

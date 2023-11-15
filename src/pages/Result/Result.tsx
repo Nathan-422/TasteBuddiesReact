@@ -27,7 +27,6 @@ export default function Event() {
 	const { photo, isLoading: isPhotoLoading, getPhotoDetails } = usePlacesPhoto()
 
 	useEffect(() => {
-		console.log(loaderData.matches.data)
 		getRestaurantDetails(loaderData.matches.data.mutuallyLikedRestaurant)
 	}, [])
 
@@ -36,10 +35,6 @@ export default function Event() {
 			getPhotoDetails(restaurant.photos[0].photo_reference, maxPhotoWidth)
 		}
 	}, [restaurant])
-
-	const handleClick = (e, loaderData) => {
-		console.log(loaderData)
-	}
 
 	return (
 		<>

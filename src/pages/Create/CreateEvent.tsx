@@ -25,9 +25,6 @@ export default function CreateEvent() {
 		},
 	})
 	const onSubmit: SubmitHandler<IFormInput> = (data) => {
-		console.log('Now send this data!')
-		console.log(data)
-
 		EventService.createEvent(data)
 			.then(() => {
 				setErrorRes(null)
