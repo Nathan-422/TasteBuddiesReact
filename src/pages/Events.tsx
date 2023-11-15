@@ -54,28 +54,44 @@ export default function Events() {
 				</div>
 				<div className="mb-8 grid grid-cols-2 gap-6">
 					<div className="flex flex-col text-center">
-						<p>Upcomming Events</p>
+						<h4>Upcomming Events</h4>
 						<ul>
 							{upcommingEvents.length === 0 && (
 								<p>No upcomming events. Go make one!</p>
 							)}
 							{upcommingEvents.map((event) => {
+								const date = new Date(event.mealTime)
+								const formattedDate = `${date.toDateString().replace(' ', ', ')} | ${
+									date.getHours() > 12 ? date.getHours() - 12 : date.getHours()
+								}:${date.getMinutes()}${date.getHours() < 12 ? 'am' : 'pm'}`
 								return (
 									<li key={event.entryCode}>
-										{<Link to={'' + event.id}>{event.entryCode}</Link>}
+										{
+											<Link to={'' + event.id}>
+												{formattedDate + ' - ' + event.entryCode}
+											</Link>
+										}
 									</li>
 								)
 							})}
 						</ul>
 					</div>
 					<div className="flex flex-col text-center">
-						<p>Past Events</p>
+						<h4>Past Events</h4>
 						<ul>
 							{pastEvents.length === 0 && <p>No upcomming events. Go make one!</p>}
 							{pastEvents.map((event) => {
+								const date = new Date(event.mealTime)
+								const formattedDate = `${date.toDateString().replace(' ', ', ')} | ${
+									date.getHours() > 12 ? date.getHours() - 12 : date.getHours()
+								}:${date.getMinutes()}${date.getHours() < 12 ? 'am' : 'pm'}`
 								return (
 									<li key={event.entryCode}>
-										{<Link to={'' + event.id}>{event.entryCode}</Link>}
+										{
+											<Link to={'' + event.id}>
+												{formattedDate + ' - ' + event.entryCode}
+											</Link>
+										}
 									</li>
 								)
 							})}
