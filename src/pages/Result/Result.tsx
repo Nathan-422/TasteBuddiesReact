@@ -48,9 +48,8 @@ export default function Event() {
 						<h3>{!isRestaurantLoading ? restaurant.name : 'Loading...'}</h3>
 						{!isPhotoLoading && photo ? (
 							<img
-								className="my-2 rounded-2xl"
+								className="my-2 aspect-auto max-h-96 rounded-2xl object-scale-down"
 								src={URL.createObjectURL(photo)}
-								width={maxPhotoWidth}
 							/>
 						) : (
 							<p>Loading image...</p>
