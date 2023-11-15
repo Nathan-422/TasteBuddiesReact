@@ -9,7 +9,7 @@ import Events from '../pages/Events'
 import Home from '../pages/Home'
 import JoinEvent from '../pages/JoinEvent'
 import Register from '../pages/Register'
-import Result from '../pages/Result'
+import Result, { resultsLoader } from '../pages/Result/Result'
 import SignIn from '../pages/SignIn'
 import SignOut from '../pages/SignOut'
 
@@ -71,6 +71,7 @@ const Routes = () => {
 						{
 							path: '/event/:eventId/results',
 							element: <Result />,
+							loader: resultsLoader,
 						},
 					],
 				},

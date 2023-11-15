@@ -14,7 +14,7 @@ type TRestaurant = {
 	}>
 }
 
-export const useRestaurantDetails = (restaurantId: string) => {
+export const useRestaurantDetails = (restaurantId?: string) => {
 	const [id, setId] = useState(restaurantId)
 	const [restaurant, setResturant] = useState<TRestaurant>({} as TRestaurant)
 	const [isLoading, setIsLoading] = useState(false)
