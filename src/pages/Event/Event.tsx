@@ -8,13 +8,17 @@ import EventService from '../../services/EventService'
 import useSubmitLike from './useSubmitLike'
 
 export const loader = async ({ params }: { params: { eventId: string } }) => {
-	return await EventService.getEvent(params.eventId)
+	const eventRes = await EventService.getEvent(params.eventId)
+	const resultRes = await EventService.getEventResults(
+		Number.parseInt(params.eventId)
+	)
+	return { eventRes, resultRes }
 }
 
 export default function Event() {
 	const maxPhotoWidth = 400
-	const loaderData = useLoaderData()
-	const data = useLoaderData().data as TEvent
+	const data = useLoaderData().eventRes.data as TEvent
+	const resultData = useLoaderData().resultRes.data
 	const {
 		restaurant,
 		isLoading: isRestaurantLoading,
@@ -60,11 +64,9 @@ export default function Event() {
 				<h4>Info:</h4>
 				<p>{!isRestaurantLoading ? restaurant.formatted_address : 'Loading...'}</p>
 				<p>
-					{/* {!isLoading && restaurant.types.length !== 0 */}
-					{/* 	? restaurant.types.map((type) => { */}
-					{/* 			return type */}
-					{/* 	  }) */}
-					{/* 	: 'Loading...'} */}
+					{!isRestaurantLoading && restaurant.types?.length !== 0
+						? restaurant.types?.join(', ')
+						: 'Loading...'}
 				</p>
 				<button
 					onClick={() => {
@@ -81,8 +83,8 @@ export default function Event() {
 					No
 				</button>
 				<p>
-					{data.mutuallyLikedRestaurant ? (
-						<Link to={'/'}>Your group has a match</Link>
+					{resultData.mutuallyLikedRestaurant ? (
+						<Link to={'./results'}>Your group has a match</Link>
 					) : (
 						'No match yet'
 					)}

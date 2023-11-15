@@ -50,9 +50,7 @@ export const usePlacesPhoto = (
 					setPhoto(res.data)
 				})
 				.catch((e) => {
-					if (e.message === 'cancelled') {
-						console.log('--Photo load cancelled')
-					} else {
+					if (e.message !== 'cancelled') {
 						console.error(e)
 					}
 				})
@@ -60,11 +58,13 @@ export const usePlacesPhoto = (
 					setIsLoading(false)
 				})
 		} catch (e) {
-			console.log(e)
-			setIsLoading(false)
+			if (e.message !== 'cancelled') {
+				console.log(e)
+			}
 		}
 		return () => {
 			controller.abort()
+			setIsLoading(false)
 		}
 	}, [photo_reference])
 

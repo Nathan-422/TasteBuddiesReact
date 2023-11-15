@@ -14,7 +14,7 @@ type TRestaurant = {
 	}>
 }
 
-export const useRestaurantDetails = (restaurantId: string) => {
+export const useRestaurantDetails = (restaurantId?: string) => {
 	const [id, setId] = useState(restaurantId)
 	const [restaurant, setResturant] = useState<TRestaurant>({} as TRestaurant)
 	const [isLoading, setIsLoading] = useState(false)
@@ -36,9 +36,7 @@ export const useRestaurantDetails = (restaurantId: string) => {
 					setResturant(res.data)
 				})
 				.catch((e) => {
-					if (e.message === 'cancelled') {
-						console.log('Event load cancelled')
-					} else {
+					if (e.message !== 'cancelled') {
 						console.error(e)
 					}
 				})

@@ -1,5 +1,6 @@
 import axios, { AxiosRequestConfig } from 'axios'
 import { Event } from '../models/Event'
+import StorageService from './StorageService'
 
 type NewEventDTO = {
 	location: string
@@ -35,7 +36,11 @@ export default {
 
 	getEvent: (eventID: string, controller?: AbortController) => {
 		config.signal = controller?.signal
-		return axios.post(EVENT_API, JSON.stringify(eventID), config)
+		config.headers = {
+			Authorization: 'Bearer ' + StorageService.getJwt(),
+			'Content-Type': 'application/json',
+		}
+		return axios.post(EVENT_API, eventID, config)
 	},
 
 	joinEvent: (entryCode: string, controller?: AbortController) => {
